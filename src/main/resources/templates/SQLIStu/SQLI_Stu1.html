@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stu1</title>
+</head>
+<body>
+<pre>
+        (一) 、显式攻击训练
+显示攻击训练的参数具有用户的直接可编辑性。训练内容如下:
+
+建立一轻型数据库系统, 系统存在users表, 表内包含uname、pw等字段。在程序的登录页面需要输入用户名uname和密码pw两个参数进行身份验证。现在有一用户, 其用户名为xinlei, 密码为smile2013, 需要登录系统。构建其SQL语句可以采用以下两种方式:
+
+(1) select*from users where uname=’xinlei’and pw=’smile2013’;
+
+(2) select count (*) from users where uname=’xinlei’and pw=’smile2013’
+
+第 (1) 种查询方式如果返回一条记录, 则说明身份验证成功;反之失败。第 (2) 种方式如果返回记录数为1, 则说明成功;反之, 返回值为0或者>1, 说明登录失败。
+
+SQL注入攻击:
+
+现在分别对uname和pw两个参数赋畸形值, 以上 (1) (2) SQL语句分别变为:
+
+(3) select*from users where uname=’xinlei’or1=1 and pw=’123’;
+
+(4) select count (*) from users where uname=’xinlei’and 1=1 and pw=’123’
+
+语句 (3) 中有两个判断条件, 只要其中一个为真, 则身份验证成功, 通常用1=1恒为真进行实验。
+
+语句 (4) 只要在已知用户名正确的情况下, 身份验证就会成功。
+
+使用此条件验证方法还可以实现数据库数据的增、删、改、查等危险操作。
+    </pre>
+
+</body>
+</html>

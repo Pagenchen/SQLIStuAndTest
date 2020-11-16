@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagen.dao.UserDao">
+    <select id="hasUserAndPwd" resultType="INTEGER">
+        SELECT COUNT(*) FROM SYSTEM_USER USER WHERE username = #{userName} AND password = #{password}
+        <if test="admin == 'true'">
+            and power > 0
+        </if>
+    </select>
+
+    <insert id="register" parameterType="com.pagen.entity.User">
+        INSERT INTO `permission_security`.`system_user`(`username`, `password`, `power`, `salt`, `status`)
+        VALUES (#{username}, #{password}, 1, #{salt}, 1)
+    </insert>
+
+    <select id="findUserByUsername" parameterType="String" resultType="com.pagen.entity.User">
+        SELECT *
+        FROM system_user
+        WHERE username = #{username}
+    </select>
+
+    <select id="findRolesByUserName" parameterType="String" resultType="com.pagen.entity.Roles">
+        SELECT *
+        FROM roles
+        WHERE role_name = #{username}
+    </select>
+
+    <select id="findPermsByRoleId" parameterType="String" resultType="com.pagen.entity.Permissions">
+        SELECT *
+        FROM permissions
+        WHERE permission_name = #{username}
+    </select>
+
+</mapper>

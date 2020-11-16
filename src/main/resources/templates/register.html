@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/lib/layui-v2.5.5/css/layui.css" media="all" rel="stylesheet">
+</head>
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden
+    }
+
+    body {
+        background: #1E9FFF;
+    }
+
+    body:after {
+        content: '';
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .layui-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .admin-register-background {
+        width: 360px;
+        height: 300px;
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        margin-left: -180px;
+        margin-top: -100px;
+    }
+
+    .logo-title {
+        text-align: center;
+        letter-spacing: 2px;
+        padding: 14px 0;
+    }
+
+    .logo-title h1 {
+        color: #1E9FFF;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .register-form {
+        background-color: #fff;
+        border: 1px solid #fff;
+        border-radius: 3px;
+        padding: 14px 20px;
+        box-shadow: 0 0 8px #eeeeee;
+    }
+
+    .register-form .layui-form-item {
+        position: relative;
+    }
+
+    .register-form .layui-input-block label {
+        position: absolute;
+        left: 1px;
+        top: 1px;
+        width: 38px;
+        line-height: 36px;
+        text-align: center;
+        color: #d2d2d2;
+    }
+
+    .register-form .layui-form-item input {
+        padding-left: 36px;
+    }
+
+    .captcha-img img {
+        height: 34px;
+        border: 1px solid #e6e6e6;
+        width: 100%;
+    }
+</style>
+<body>
+<div class="layui-container">
+    <div class="admin-register-background">
+        <div class="layui-form register-form">
+            <form class="layui-form">
+                <div class="layui-form-item logo-title">
+                    <h1>注册</h1>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-block">
+                        <label class="layui-icon layui-icon-username" for="username"></label>
+                        <input autocomplete="off" class="layui-input" id="username" lay-verify="username"
+                               name="username" placeholder="请输入用户名"
+                               type="text">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密 码：</label>
+                    <div class="layui-input-block">
+                        <label class="layui-icon layui-icon-password" for="password"></label>
+                        <input autocomplete="off" class="layui-input" id="password" lay-verify="password"
+                               name="password"
+                               placeholder="请输入密码"
+                               type="password">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">再次输入：</label>
+                    <div class="layui-input-block">
+                        <label class="layui-icon layui-icon-password" for="password_repeat"></label>
+                        <input autocomplete="off" class="layui-input" id="password_repeat" lay-verify="password_repeat"
+                               name="password_repeat"
+                               placeholder="请再次输入密码"
+                               type="password">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-filter="register"
+                            lay-submit="">立即注册
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<script charset="utf-8" src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script charset="utf-8" src="/lib/layui-v2.5.5/layui.js"></script>
+<script charset="utf-8" src="/lib/jq-module/jquery.particleground.min.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        // 注册的时候，跳出ifram框架
+        if (top.location != self.location) top.location = self.location;
+
+        // 粒子线条背景
+        $(document).ready(function () {
+            $('.layui-container').particleground({
+                dotColor: '#7ec7fd',
+                lineColor: '#7ec7fd'
+            });
+        });
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+
+        //自定义验证规则
+        form.verify({
+            username: function (value) {
+                if (value.length < 5) {
+                    return '用户名至少得5个字符';
+                }
+            }
+            , password: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+            , password_repeat: function (value) {
+                // if (value != password.value()) {
+                //     return "两次输入不一样";
+                // }
+            }
+        });
+
+        //监听提交
+        form.on('submit(register)', function (data) {
+            data = data.field;
+
+            if (data.password != data.password_repeat) {
+                layer.msg("两次输入不一致");
+                return false;
+            }
+
+            $.post("/user/register", data, function (Data) {
+                layer.confirm(Data.msg, {btn: ['确定', '取消'], title: "提示"}, function () {
+                    window.location = Data.src;
+                    return false;
+                })
+            });
+            return false;
+        });
+
+        return false;
+
+    });
+</script>
+</html>

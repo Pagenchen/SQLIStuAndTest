@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagen.dao.StudyPageDao">
+    <select id="getStuPageItemByPageId" parameterType="java.lang.String" resultType="StuPageItem">
+        SELECT *
+        FROM study_page_items
+        where pid = #{pageId}
+        order by p_num
+    </select>
+
+    <select id="getAllStuPages" resultType="StuPages">
+        select *
+        from study_pages
+    </select>
+
+    <insert id="addPageItems" parameterType="StuPageItem">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="p_num">
+            select max(p_num)+1 from study_page_items where pid = #{pid}
+        </selectKey>
+        insert into study_page_items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            p_num,
+            <if test="id != null">
+                pid,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="descript != null">
+                descript,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="example != null">
+                example,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            (select max(p_num)+1 as p_num from study_page_items as s1 where pid = #{id} ),
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="descript != null">
+                #{descript},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="example != null">
+                #{example},
+            </if>
+        </trim>
+    </insert>
+</mapper>

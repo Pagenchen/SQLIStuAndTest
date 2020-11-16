@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第一章 SQL基础</title>
+    <link href="/lib/layui-v2.5.5/css/layui.css" media="all" rel="stylesheet">
+    <link href="/css/public.css" media="all" rel="stylesheet">
+    <style>
+        .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+            height: 34px;
+            line-height: 34px;
+            padding: 0 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+            这里放置SQL的基础<br>
+            <a class="layui-btn layui-btn-danger" href="https://www.runoob.com/sql/sql-intro.html" target="_blank">treetable-lay</a>
+        </blockquote>
+        <div>
+            <div class="layui-btn-group">
+                <button class="layui-btn" id="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
+            </div>
+            <pre>
+
+                SQL注入 (SQL Injection) 是网络攻击的主要手段之一, 防火墙对其的“不可有效防范”性, 使得其一被提出, 即引起了广泛的关注。
+
+SQL注入技术国外最早出现在1999年, 我国自2002年后大量出现。Chris Anley[1]将SQL注入定义为:攻击者通过在查询操作中插入一系列的SQL语句到应用程序中来操作数据。Stephen Kost[2]将其解释为:从数据库中获得未经授权的访问和直接检索。目前国际组织未对其进行标准定义, 微软中国技术中心给出的描述是:脚本注入式的攻击和恶意用户输入用来影响被执行的SQL脚本[3]。
+
+通俗地说, SQL注入是一个安全漏洞, 如果系统接受来自终端用户的输入, 把这个输入拼接到查询中, 然后编译和执行此查询, 就会存在被攻入的危险。系统接受终端用户的输入, 是存在数据库连接的应用程序, 尤其是WEB应用程序不可避免的操作。攻击者通过在应用程序中预先定义好的查询语句加上额外的SQL语句元素, 使数据库服务器执行非授权的查询, 最终获得数据库的重要信息, 例如表、表结构、系统的用户名和密码等。这相当于将系统的操作权限交给任何攻入的终端用户, 带来灾难性后果。
+
+SQL注入攻击具有以下特点[4,5]:
+
+(1) 广泛性。SQL注入攻击采用拼接SQL语法的方法, SQL注入的风险与数据库本身无关, 所有利用SQL语言标准的数据库软件, 都会存在SQL注入的风险。
+
+(2) 隐蔽性。目前市面上的防火墙都不会对SQL注入发出报警, 使得SQL注入攻击隐蔽性强, 不易被发现。
+
+(3) 技术难度不高。网络上有很多SQL注入工具可以利用, 即使不懂编程和SQL, 也可以轻易地对存在SQL注入的应用程序实施攻击。
+
+(4) 变种多。有经验的攻击者可以手动调整攻击参数, 具体情况具体分析, 构造巧妙的SQL语句, 致使攻击数据变种多, 从而导致特征匹配等检测方法不能有效识别攻击。
+
+(5) 危害性大。SQL注入攻击成功后, 轻者仅仅更改一些标识信息, 重者则可以获取和更改机密数据, 带来重大经济损失等严重后果。
+            </pre>
+            <!--            <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>-->
+        </div>
+    </div>
+</div>
+<!-- 操作列 -->
+<script id="auth-state" type="text/html">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script charset="utf-8" src="/lib/layui-v2.5.5/layui.js"></script>
+<script charset="utf-8" src="/js/lay-config.js?v=1.0.4"></script>
+<script>
+    layui.use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+
+        // 渲染表格
+        // layer.load(2);
+    ]
+
+        //全部展开
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#munu-table');
+        });
+
+        //全部折叠
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#munu-table');
+        });
+
+        //监听工具条
+        table.on('tool(munu-table)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'del') {
+                layer.msg('删除' + data.id);
+            } else if (layEvent === 'edit') {
+                layer.msg('修改' + data.id);
+            }
+        });
+    });
+</script>
+</body>
+</html>

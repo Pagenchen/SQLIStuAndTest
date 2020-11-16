@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>第一章 SQL基础</title>
+    <link href="/lib/layui-v2.5.5/css/layui.css" media="all" rel="stylesheet">
+    <link href="/css/public.css" media="all" rel="stylesheet">
+    <link href="/css/highlight.css" rel="stylesheet">
+    <link href="/css/prism.css" rel="stylesheet">
+    <style>
+        .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+            height: 34px;
+            line-height: 34px;
+            padding: 0 8px;
+        }
+
+
+        #postContentDiv {
+            font: 14px "Microsoft YaHei", Helvetica, Arial, Lucida Grande, Tahoma, sans-serif;
+            color: #333;
+            box-sizing: inherit;
+            border: 0;
+            font-family: inherit;
+            font-style: inherit;
+            margin: 0;
+            padding: 0;
+            vertical-align: baseline;
+            font-size: 1.6rem;
+            line-height: 1.9;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="layuimini-container">
+    <blockquote class="layui-elem-field">
+        <div>
+            <h1 class=" ">MySQL常用命令语句</h1>
+        </div>
+        <br>
+        <span class="layui-breadcrumb" lay-separator="|" style="visibility: unset">
+            <a href="/page/welcome" layuimini-content-href="/page/index">首页</a>
+            <a href="">SQL基础</a>
+            <a><cite>MySQL常用命令语句</cite></a>
+        </span>
+    </blockquote>
+
+    <blockquote class="layui-elem-quote">
+        <div class="layui-row layui-col-space15">
+            <!--展示主体-->
+            <div class="layui-col-md8">
+                <div class="single-content flow-default" id="postContentDiv"></div>
+            </div>
+            <!--表格控制-->
+            <div class="layui-col-md4">
+                <div class="layui-btn-group">
+                    <button class="layui-btn" id="btn-expand">全部展开</button>
+                    <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
+                </div>
+                <table class="layui-table" id="munu-table" lay-filter="munu-table"></table>
+            </div>
+        </div>
+    </blockquote>
+</div>
+<!-- 操作列 -->
+<script id="auth-state" type="text/html">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script charset="utf-8" src="/lib/layui-v2.5.5/layui.js"></script>
+<script charset="utf-8" src="/js/lay-config.js?v=1.0.4"></script>
+<script src="/js/prism.js"></script>
+
+<script th:inline="javascript">
+    // 根据类型，生成信息条目
+    var initItem = function (list, count) {
+        var item;
+        switch (list.type) {
+            case "sql":
+                item = "<h4 class=\"\">" + count + "、" + list.title + "</h4>\n" +
+                    "<div class=\"dp-highlighter\">\n" +
+                    "   <ol class=\"dp-sql\"> <li class=\"alt\">" +
+                    "      <pre><code class='language-css'>" + list.content + "</code>" +
+                    "</pre></li></ol></div>";
+                break;
+
+            case "html":
+                item = "<h4 class=\"\" ></h4>\n" + count + "、" + list.title +
+                    "<div>" + list.content + "</div>";
+                break;
+        }
+
+        return item;
+    };
+
+    layui.use(['table', 'treetable', 'code', 'flow'], function () {
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var flow = layui.flow;
+        var count = 0;
+
+        flow.load({
+            elem: '#postContentDiv' //指定列表容器
+            , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                $.get('/stu/SQLStuI/2?pageNum=' + page, function (resp) {
+                    var res = resp.pageItems;
+                    var list = res.list;
+                    for (let i in list) {
+                        var item = initItem(list[i], count++);
+                        lis.push(item);
+                    }
+                    next(lis.join(''), page < res.pages);
+                });
+            }
+        });
+
+        layui.code({
+            skin: "notepad",
+            title: "sql",
+            about: false
+        });
+
+        treetable.render({
+            treeColIndex: 1,
+            treeSpid: -1,
+            treeIdName: 'authorityId',
+            treePidName: 'parentId',
+            elem: '#munu-table',
+            url: '/api/menus.json',
+            page: false,
+            cols: [
+                [{type: 'numbers'},
+                    {field: 'authorityName', minWidth: 200, title: '权限名称'},
+                    {field: 'authority', title: '权限标识'},
+                    {field: 'menuUrl', title: '菜单url'},
+                    {field: 'orderNumber', width: 80, align: 'center', title: '排序号'},
+                    {
+                        field: 'isMenu', width: 80, align: 'center', templet: function (d) {
+                            if (d.isMenu == 1) {
+                                return '<span class="layui-badge layui-bg-gray">按钮</span>';
+                            }
+                            if (d.parentId == -1) {
+                                return '<span class="layui-badge layui-bg-blue">目录</span>';
+                            } else {
+                                return '<span class="layui-badge-rim">菜单</span>';
+                            }
+                        }, title: '类型'
+                    },
+                    {templet: '#auth-state', width: 120, align: 'center', title: '操作'}]
+            ],
+            done: function () {
+                layer.closeAll('loading');
+            }
+        });
+
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#munu-table');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#munu-table');
+        });
+
+        //监听工具条
+        table.on('tool(munu-table)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'del') {
+                layer.msg('删除' + data.id);
+            } else if (layEvent === 'edit') {
+                layer.msg('修改' + data.id);
+            }
+        });
+    });
+</script>
+</body>
+</html>

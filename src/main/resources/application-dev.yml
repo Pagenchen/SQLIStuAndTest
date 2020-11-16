@@ -1,0 +1,4 @@
+mybatis:
+  mapper-locations: classpath:pagen/mapper/*Mapper.xml
+  type-aliases-package: com.pagen.entity
+

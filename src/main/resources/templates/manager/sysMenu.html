@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+    <link href="/lib/layui-v2.5.5/css/layui.css" media="all" rel="stylesheet">
+    <link href="/css/public.css" media="all" rel="stylesheet">
+    <style>
+        .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+            height: 34px;
+            line-height: 34px;
+            padding: 0 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+            本用页面用来管理系统页面，请修改前确认好已经考虑完毕，或者做备份后再修改。<br>
+        </blockquote>
+        <div>
+            <div class="layui-btn-group">
+                <button class="layui-btn" id="btn-expand">全部展开</button>
+                <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
+            </div>
+            <table class="layui-table" id="munu-table" lay-filter="munu-table"></table>
+        </div>
+    </div>
+</div>
+<!-- 操作列 -->
+<script id="auth-state" type="text/html">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add">添加子项</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script charset="utf-8" src="/lib/layui-v2.5.5/layui.js"></script>
+<script charset="utf-8" src="/js/lay-config.js?v=1.0.4"></script>
+<script>
+    layui.use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+
+        // 渲染表格
+        layer.load(2);
+        treetable.render({
+            treeColIndex: 1,
+            treeSpid: 0,
+            treeIdName: 'id',
+            treePidName: 'pid',
+            elem: '#munu-table',
+            url: '/manager/getMenus',
+            page: false,
+            cols: [
+                [
+                    {type: 'numbers'},
+                    {field: 'title', minWidth: 200, title: '目录名称'},
+                    {field: 'remark', width: 200, title: '权限标识'},
+                    {field: 'href', title: '菜单url'},
+                    {field: 'create_at', title: '修改时间'},
+                    {
+                        field: 'status', width: 80, align: 'center', templet: function (d) {
+                            if (d.status == 1) {
+                                return '<span class="layui-badge layui-bg-blue">活动</span>';
+                            }
+                            if (d.status == 0) {
+                                return '<span class="layui-badge layui-bg-gray">失效</span>';
+                            } else {
+                                return '<span class="layui-badge-rim">菜单</span>';
+                            }
+                        }, title: '状态'
+                    },
+                    {field: 'sort', width: 80, align: 'center', title: '排序号'},
+                    {templet: '#auth-state', width: 200, align: 'center', title: '操作'}
+                ]
+            ],
+            done: function () {
+                layer.closeAll('loading');
+            }
+        });
+
+        /**
+         * 全部展开
+         */
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#munu-table');
+        });
+        /**
+         * 全部关上
+         */
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#munu-table');
+        });
+
+        /**
+         * 监听工具条
+         *
+         */
+        table.on('tool(munu-table)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'del') {
+                layer.msg('删除‘' + data.title + '’成功', {time: 500}, function () {
+                    $.get("/manager/deleteMenu.do?id=" + data.id);
+                    location.reload();
+                });
+            } else if (layEvent === 'edit') {
+                var index = layer.open({
+                    title: '编辑目录',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: false,
+                    shadeClose: true,
+                    area: ['75%', '75%'],
+                    content: '/manager/update/editMenu?id=' + data.id,
+                    end: function () {
+                        location.reload();
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (layEvent === 'add') {
+                var index2 = layer.open({
+                    title: '添加子项',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: false,
+                    shadeClose: true,
+                    area: ['75%', '75%'],
+                    content: '/manager/update/addMenu?id=' + data.id,
+                    end: function () {
+                        location.reload();
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index2);
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

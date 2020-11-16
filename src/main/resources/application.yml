@@ -1,0 +1,51 @@
+#本地开发环境配置中心
+spring:
+  application:
+    name: springboot-webAdmin
+
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/permission_security?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  #thymeleaf模板配置
+  thymeleaf:
+    cache: false
+    suffix: .html
+
+  mvc:
+    view:
+      prefix: classpath:/templates/
+
+  redis:
+    port: 6379
+    host: localhost
+    database: 0
+
+#项目端口
+server:
+  port: 8080
+
+  #设置tomcat参数
+  tomcat:
+    uri-encoding: utf-8
+    max-connections: 10000
+
+
+#配置日志文件参数
+logging:
+  file:
+    path: D:/myLog/adminLog.log
+  level:
+    org:
+      springframework: debug
+    hibernate: debug
+
+#配置PageHelper方言
+pagehelper:
+  helper-dialect: mysql
