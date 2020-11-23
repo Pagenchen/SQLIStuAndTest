@@ -54,6 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Permissions> findPermsByRoleId(String id) {
-        return findPermsByRoleId(id);
+        return userDao.findPermsByRoleId(id);
     }
 }

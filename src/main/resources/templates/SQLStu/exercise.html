@@ -25,68 +25,23 @@
                     <input type="hidden" value="@Model.BlogTypeID" id="blogtypeid"/>
                     <section class="article-item">
                         <aside class="title" style="line-height:1.5;">
-                            <h4>SQL注入简介</h4>
+                            <h4>SQL练习</h4>
                             <p class="fc-grey fs-14">
                                 <small>
-                                    作者：<a href="javascript:void(0)" target="_blank" class="fc-link">PagenChen</a>
+                                    作者：<a href="javascript:void(0)" target="_self" class="fc-link">PagenChen</a>
                                 </small>
                                 <small class="ml10">围观群众：<i class="readcount">121</i></small>
                                 <small class="ml10">更新于 <label>2020-11-11:11:20:21</label> </small>
                             </p>
                         </aside>
-                        <div class="time mt10" style="padding-bottom:0;">
-                            <span class="day">1</span>
-                            <span class="month fs-18">7<small class="fs-14">月</small></span>
-                            <span class="year fs-18">2020</span>
-                        </div>
-                        <div class="content artiledetail"
-                             style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
-                            这部分是对SQL注入做一个简单的介绍，包括其形成的原理，危害等。<br>
-                            SQL注入 (SQL Injection) 是网络攻击的主要手段之一, 防火墙对其的“不可有效防范”性, 使得其一被提出, 即引起了广泛的关注。
-                            <br>
-                            SQL注入技术国外最早出现在1999年, 我国自2002年后大量出现。Chris
-                            Anley[1]将SQL注入定义为:攻击者通过在查询操作中插入一系列的SQL语句到应用程序中来操作数据。Stephen
-                            Kost[2]将其解释为:从数据库中获得未经授权的访问和直接检索。目前国际组织未对其进行标准定义,
-                            微软中国技术中心给出的描述是:脚本注入式的攻击和恶意用户输入用来影响被执行的SQL脚本[3]。
-                            <br>
-                            通俗地说, SQL注入是一个安全漏洞, 如果系统接受来自终端用户的输入, 把这个输入拼接到查询中, 然后编译和执行此查询, 就会存在被攻入的危险。系统接受终端用户的输入,
-                            是存在数据库连接的应用程序, 尤其是WEB应用程序不可避免的操作。攻击者通过在应用程序中预先定义好的查询语句加上额外的SQL语句元素, 使数据库服务器执行非授权的查询,
-                            最终获得数据库的重要信息, 例如表、表结构、系统的用户名和密码等。这相当于将系统的操作权限交给任何攻入的终端用户, 带来灾难性后果。
-                            <br>
-                            SQL注入攻击具有以下特点:
-                            <br>
-                            (1) 广泛性。SQL注入攻击采用拼接SQL语法的方法, SQL注入的风险与数据库本身无关, 所有利用SQL语言标准的数据库软件, 都会存在SQL注入的风险。
-                            <br>
-                            (2) 隐蔽性。目前市面上的防火墙都不会对SQL注入发出报警, 使得SQL注入攻击隐蔽性强, 不易被发现。
-                            <br>
-                            (3) 技术难度不高。网络上有很多SQL注入工具可以利用, 即使不懂编程和SQL, 也可以轻易地对存在SQL注入的应用程序实施攻击。
-                            <br>
-                            (4) 变种多。有经验的攻击者可以手动调整攻击参数, 具体情况具体分析, 构造巧妙的SQL语句, 致使攻击数据变种多, 从而导致特征匹配等检测方法不能有效识别攻击。
-                            <br>
-                            (5) 危害性大。SQL注入攻击成功后, 轻者仅仅更改一些标识信息, 重者则可以获取和更改机密数据, 带来重大经济损失等严重后果。
-                            <div class="copyright mt20">
-                                <p class="f-toe fc-black">
-                                    非特殊说明，本文版权归 Pagen 所有，转载请注明出处.
-                                </p>
-                                <p class="f-toe">
-                                    本文标题：
-                                    <a href="javascript:;" layuimini-content-href="stu/SQLStu/SQLSHome"
-                                       data-title="SQL学习主页">SQL注入简介</a>
-                                </p>
-                                <p class="f-toe">
-                                    本文网址：
-                                    <a href="https://www.baidu.com">www.baidu.com</a>
-                                </p>
-                            </div>
-                            <div id="aplayer" style="margin:5px 0"></div>
+<!--                        <div class="time mt10" style="padding-bottom:0;">-->
+<!--                            <span class="day">1</span>-->
+<!--                            <span class="month fs-18">7<small class="fs-14">月</small></span>-->
+<!--                            <span class="year fs-18">2020</span>-->
+<!--                        </div>-->
+                        <!--主内容 COPY FROM MD Document-->
+                        <div class="content artiledetail" style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;"></div>
 
-                            <h6>延伸阅读</h6>
-                            <ol class="b-relation">
-                                <li><a href=""></a></li>
-                                <li>2</li>
-                                <li>2</li>
-                            </ol>
-                        </div>
 
                         <!--评论-->
                         <fieldset class="layui-elem-field layui-field-title">
@@ -112,7 +67,7 @@
                             <li>
                                 <div class="comment-parent">
                                     <a name="remark-1"></a>
-                                    <img src="/images/t2.png" />
+                                    <img src="/images/t2.png"/>
                                     <div class="info">
                                         <span class="username">冰</span>
                                     </div>
@@ -126,7 +81,7 @@
                                         <a href="javascript:;" class="btn-reply" data-targetid="1" data-targetname="冰">回复</a>
                                     </p>
                                 </div>
-                                <hr />
+                                <hr/>
                                 <div class="comment-child">
                                     <a name="reply-1"></a>
                                     <img src="/images/admin_img.png">
@@ -148,10 +103,14 @@
                                         <input type="hidden" name="remarkId" value="1">
                                         <input type="hidden" name="targetUserId" value="0">
                                         <div class="layui-form-item">
-                                            <textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>
+                                            <textarea name="replyContent" lay-verify="replyContent"
+                                                      placeholder="请输入回复内容" class="layui-textarea"
+                                                      style="min-height:80px;"></textarea>
                                         </div>
                                         <div class="layui-form-item">
-                                            <button class="layui-btn layui-btn-xs" lay-submit="formReply" lay-filter="formReply">提交</button>
+                                            <button class="layui-btn layui-btn-xs" lay-submit="formReply"
+                                                    lay-filter="formReply">提交
+                                            </button>
                                         </div>
                                     </form>
                                 </div>

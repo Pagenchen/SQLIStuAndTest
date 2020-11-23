@@ -6,6 +6,8 @@ import com.pagen.entity.SysMenu;
 import com.pagen.service.StudyPageService;
 import com.pagen.service.SysMenuService;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,8 @@ public class ManagerController {
      * @param P
      * @return
      */
+//    @RequiresRoles(value = {"admin"})
+//    @RequiresPermissions("*:*:*")
     @RequestMapping("page/{P}")
     public String jumpTo(@PathVariable("P") String P) {
         return "manager/" + P;

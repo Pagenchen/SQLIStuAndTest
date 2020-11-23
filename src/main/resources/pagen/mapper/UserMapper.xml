@@ -19,16 +19,34 @@
         WHERE username = #{username}
     </select>
 
-    <select id="findRolesByUserName" parameterType="String" resultType="com.pagen.entity.Roles">
-        SELECT *
-        FROM roles
-        WHERE role_name = #{username}
+    <resultMap id="userMap" type="User">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <!--角色信息-->
+        <collection property="roles" javaType="list" ofType="Roles">
+            <id column="id" property="id"/>
+            <result column="rname" property="role_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="findRolesByUserName" parameterType="String" resultMap="userMap">
+        SELECT u.id uid,u.username,r.id,r.role_name rname
+        FROM system_user u
+        left join user_roles ur
+        on ur.user_id=u.id
+        left join roles r
+        on ur.role_id = r.id
+        WHERE u.username = #{username}
     </select>
 
     <select id="findPermsByRoleId" parameterType="String" resultType="com.pagen.entity.Permissions">
-        SELECT *
-        FROM permissions
-        WHERE permission_name = #{username}
+        SELECT p.id,p.permission_name,r.role_name
+        FROM roles r
+        left join role_permissions rp
+        on r.id = rp.role_id
+        left join permissions p
+        on rp.permission_id = p.id
+        WHERE r.id = #{id}
     </select>
 
 </mapper>
