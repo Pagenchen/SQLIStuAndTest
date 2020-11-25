@@ -36,9 +36,9 @@ public class ShiroConfigure {
         Map<String, String> map = new HashMap<String, String>();
 
         //设置权限 默认都可访问，后面特定的权限再添加
-        map.put("/**", "anon");
+//        map.put("/**", "anon");
 //
-//        map.put("/api/**","anon");//anon 设置为公共资源  放行资源放在下面
+        map.put("/manager/**","authc");//anon 设置为公共资源  放行资源放在下面
 //        map.put("/css/**","anon");//anon 设置为公共资源  放行资源放在下面
 //        map.put("/images/**","anon");//anon 设置为公共资源  放行资源放在下面
 //        map.put("/js/**","anon");//anon 设置为公共资源  放行资源放在下面
@@ -54,10 +54,10 @@ public class ShiroConfigure {
 //        map.put("/user/registerview","anon");//anon 设置为公共资源  放行资源放在下面
 //        map.put("/user/login","anon");//anon 设置为公共资源  放行资源放在下面
 //
-//        map.put("/**","anon");//authc 请求这个资源需要认证和授权
+        map.put("/**","anon");//authc 请求这个资源需要认证和授权
 
         //默认认证界面路径
-        shiroFilterFactoryBean.setLoginUrl("/index.html");
+        shiroFilterFactoryBean.setLoginUrl("/page/error/102");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 
 

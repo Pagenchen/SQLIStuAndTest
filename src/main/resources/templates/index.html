@@ -182,7 +182,7 @@
         $('.login-out').on("click", function () {
             $.post("/user/logout", function (data) {
                 layer.msg('退出登录成功', {time: 300}, function () {
-                    window.location = window.location;
+                    window.location = window.reload();
                 });
             });
 

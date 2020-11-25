@@ -29,8 +29,8 @@ public class ManagerController {
      * @param P
      * @return
      */
-//    @RequiresRoles(value = {"admin"})
-//    @RequiresPermissions("*:*:*")
+    @RequiresRoles(value = {"admin"})
+    @RequiresPermissions("*:*:*")
     @RequestMapping("page/{P}")
     public String jumpTo(@PathVariable("P") String P) {
         return "manager/" + P;

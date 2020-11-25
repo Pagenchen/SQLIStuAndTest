@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>500</title>
+    <title>102</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta content="*" http-equiv="Access-Control-Allow-Origin">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
@@ -215,7 +215,7 @@
                     <span class="triangle"></span>
                 </div>
             </div>
-            <h2 class="h1">很抱歉，服务器内部错误</h2>
+            <h2 class="h1">访问权限不足，<a href="/page/login">点击</a>去登陆</h2>
         </div>
     </div>
 </div>
@@ -229,7 +229,7 @@
     loop3 = setInterval(function () {
         if (i > 40) {
             clearInterval(loop3);
-            document.querySelector('.thirdDigit').textContent = 5;
+            document.querySelector('.thirdDigit').textContent = 1;
         } else {
             document.querySelector('.thirdDigit').textContent = randomNum();
             i++;
@@ -247,7 +247,7 @@
     loop1 = setInterval(function () {
         if (i > 100) {
             clearInterval(loop1);
-            document.querySelector('.firstDigit').textContent = 0;
+            document.querySelector('.firstDigit').textContent = 2;
         } else {
             document.querySelector('.firstDigit').textContent = randomNum();
             i++;

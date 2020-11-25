@@ -51,9 +51,9 @@ public class JumpController {
      *
      * @return
      */
-    @RequestMapping("error")
-    public String error() {
-        return "404";
+    @RequestMapping("error/{path}")
+    public String error(@PathVariable("path") String path) {
+        return "error/"+path;
     }
 
     /**

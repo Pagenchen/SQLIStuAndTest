@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>第一章 SQL基础</title>
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="/lib/layui-v2.5.5/css/layui.css" media="all" rel="stylesheet">
     <link href="/css/public.css" media="all" rel="stylesheet">
     <link href="/css/highlight.css" rel="stylesheet">
     <link href="/css/prism.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/blog.css"/>
     <style>
         .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
             height: 34px;
@@ -30,6 +32,16 @@
             margin-top: 20px;
             overflow: hidden;
         }
+
+        .search{padding:20px;background-color:grey;position:relative}
+        .search .search-wrap{display:block;height:40px;padding:0 20px;background-color:#fff;border-radius:40px;position:relative;z-index:5}
+
+        .category{position:relative;padding-bottom:20px}
+        .category li{display:block;height:40px;line-height:39px;position:relative;z-index:1}
+        .category li.slider{border-right:6px solid #484947;height:40px;background-color:#f8f9f7;position:absolute;top:0;left:0;right:0;z-index:0;transition:top .3s}
+        .category li.child a{padding:0 50px;font-size:12px}
+        .category li a{display:block;margin:0 30px;padding:0 20px;height:39px;border-bottom:1px solid #f8f9f7;transition:none;text-decoration:none;color:#787977}
+        .fixed{position:fixed;top:auto;width:300px;margin-top:0;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:bounceInDown;animation-name:bounceInDown}
 
 
     </style>
@@ -57,11 +69,26 @@
             </div>
             <!--表格控制-->
             <div class="layui-col-md4">
-                <div class="layui-btn-group">
-                    <button class="layui-btn" id="btn-expand">全部展开</button>
-                    <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>
-                </div>
-                <table class="layui-table" id="munu-table" lay-filter="munu-table"></table>
+                <!--右边搜索框-->
+                    <div class="search">
+                        <label class="search-wrap">
+                            <input type="text" id="searchtxt" placeholder="输入关键字搜索"/>
+                            <span class="search-icon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </label>
+                        <ul class="search-result">
+                        </ul>
+                    </div>
+                    <ul class="category mt20" id="category">
+                        <li data-index="0" class="slider"></li>
+                        <li data-index="1"><a href="/Blog/Article">全部文章</a></li>
+                        <li data-index="2"><a href="javascript:;" layuimini-content-href="/stu/SQLStu/1" data-title="SQL简介">Java</a></li>
+                        <li data-index="3"><a href="/Blog/Article/2/">前端</a></li>
+                        <li data-index="4"><a href="/Blog/Article/3/">Python</a></li>
+                        <li data-index="5"><a href="/Blog/Article/4/">PHP</a></li>
+                        <li data-index="6"><a href="/Blog/Article/5/">其它</a></li>
+                    </ul>
             </div>
         </div>
     </blockquote>
