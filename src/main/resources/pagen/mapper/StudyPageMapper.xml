@@ -5,7 +5,7 @@
         SELECT *
         FROM study_page_items
         where pid = #{pageId}
-        order by p_num
+        order by descript
     </select>
 
     <select id="getAllStuPages" resultType="StuPages">
