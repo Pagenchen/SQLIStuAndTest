@@ -16,7 +16,7 @@ public class test1 {
     @Test
     public void test1() {
         try {
-            String originUrl = "http://192.168.23.129:8080/sqli/Less-1/";
+            String originUrl = "http://192.168.23.128/sql/Less-1/?id=1";
             URL_Pages_Translation page = new URL_Pages_Translation(originUrl);
 
             String originPage = page.getPageInfo();
