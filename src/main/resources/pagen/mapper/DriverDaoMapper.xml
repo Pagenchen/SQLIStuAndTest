@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pagen.dao.DriverDao">
+    <select id="getAllBoundaries" resultType="com.pagen.examination.InjectTest.Driver.Boundaries">
+        SELECT * FROM boundaries_driver
+    </select>
+
+    <select id="getAllUnionSelectDrivers" resultType="com.pagen.examination.InjectTest.Driver.UnionSelectDriver">
+        SELECT * FROM union_select_driver
+    </select>
+
+    <select id="getAllBoolBlindDrivers" resultType="com.pagen.examination.InjectTest.Driver.BoolBlindDriver">
+        SELECT * FROM bool_blind_driver
+    </select>
+
+    <select id="getAllErrorBaseDrivers" resultType="com.pagen.examination.InjectTest.Driver.ErrorBaseDriver">
+        SELECT * FROM error_base_driver
+    </select>
+
+</mapper>

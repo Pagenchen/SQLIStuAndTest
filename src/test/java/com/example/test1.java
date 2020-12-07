@@ -4,8 +4,11 @@ import com.pagen.examination.InjectTest.BoolBlindTest;
 import com.pagen.examination.InjectTest.BoundariesTest;
 import com.pagen.examination.InjectTest.Driver.Boundaries;
 import com.pagen.examination.URL_Pages_Translation;
+import com.pagen.service.DriverServer;
+import com.pagen.service.Impl.DriverServerImpl;
 import org.junit.jupiter.api.Test;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URL;
 
@@ -13,6 +16,9 @@ import java.net.URL;
  * 测试类
  */
 public class test1 {
+    @Resource
+    DriverServer driverServer;
+
     @Test
     public void test1() {
         try {

@@ -1,5 +1,7 @@
-package com.pagen.examination.InjectTest;
+package com.example;
 
+import com.pagen.examination.InjectTest.BoolBlindTest;
+import com.pagen.examination.InjectTest.BoundariesTest;
 import com.pagen.examination.InjectTest.Driver.Boundaries;
 import com.pagen.examination.URL_Pages_Translation;
 
@@ -13,7 +15,7 @@ public class ParseDemo01 {
     @org.junit.Test
     public void test1() {
         try {
-            String originUrl = "http://www.baidu.com";
+            String originUrl = "https://www.baidu.com";
             URL_Pages_Translation page = new URL_Pages_Translation(originUrl);
 
             String originPage = page.getPageInfo();
